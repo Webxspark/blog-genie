@@ -50,23 +50,23 @@ export const AppRouter = createBrowserRouter([
             },
             {
                 path: ROUTES.dashboard.home,
-                element: <>DashboardHome</>
+                element: <SuspenseWrapper>DashboardHome</SuspenseWrapper>
             },
             {
                 path: ROUTES.dashboard.onboarding,
-                element: <>DashboardOnboarding</>
+                element: <SuspenseWrapper>DashboardOnboarding</SuspenseWrapper>
             },
             {
                 path: ROUTES.dashboard.timeline,
-                element: <>DashboardTimeline</>
+                element: <SuspenseWrapper>DashboardTimeline</SuspenseWrapper>
             },
             {
                 path: ROUTES.dashboard.instructions,
-                element: <>DashboardInstructions</>
+                element: <SuspenseWrapper>DashboardInstructions</SuspenseWrapper>
             },
             {
                 path: ROUTES.dashboard.connections,
-                element: <>DashboardConnections</>
+                element: <SuspenseWrapper>DashboardConnections</SuspenseWrapper>
             }
         ]
     }
