@@ -33,5 +33,9 @@ def expired_token_callback(jwt_header, jwt_data):
 app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(protected_bp, url_prefix="/sudo")
 
+# Create tables inside application context
+with app.app_context():
+    db.create_all()
+
 # Starting the app
-app.run("0.0.0.0", 8080, debug=True)
+app.run("0.0.0.0", 8080, debug=False)

@@ -1,0 +1,21 @@
+REST Methods:
+```
+/sudo
+    - GET
+        - /agents => Get all agents
+        - /agents/:id => Get agent by id ✅
+        - /timeline/:agent_id => Get timeline by id
+        - /connections => Get all connections (wordpress, drupal, ghost, ...)
+        - /instructions/:agent_id => Get instructions by agent id
+    - POST
+        - /agents => Create agent ✅
+        - /connections => Create connection
+    - PUT
+        - /agents/:id => Update agent by id
+        - /connections/:id => Update connection by id
+        - /instructions/:id => Update instruction by id
+    - DELETE
+        - /agents/:id => Delete agent by id
+        - /connections/:id => Delete connection by id
+        - /instructions/:id => Delete instruction by id
+```
