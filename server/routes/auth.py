@@ -23,7 +23,7 @@ def register():
         new_user = Users(username=username, email=email, password=password_hash, token=token)
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"msg": "User registered successfully"}), 201
+        return jsonify({"msg": "User registered successfully"}), 200
     except Exception as e:
         return jsonify({"msg": "An error occurred", "_e": e}), 500
 

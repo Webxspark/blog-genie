@@ -7,6 +7,7 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu.tsx";
 import {IndianRupee, LogOut} from "lucide-react";
+import {ROUTES} from "@/constants/routes.ts";
 
 export const UserAvatar = () => {
     return <Avatar className={'cursor-pointer'}>
@@ -15,6 +16,12 @@ export const UserAvatar = () => {
     </Avatar>
 }
 const AdminNav = () => {
+    const handleLogout = () => {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem(APP_CONFIG.app_code + '_user')
+            window.location.href = ROUTES.authentication.login
+        }
+    }
     return (
         <header
             className={'sticky top-0 flex items-center p-4 backdrop-blur-xl card-shadow z-[990] justify-between bg-white dark:bg-[#0a0a0a] xl:pe-8'}>
@@ -33,12 +40,12 @@ const AdminNav = () => {
                             <p className={'text-sm text-muted-foreground'}>{'services@webxspark.com'}</p>
                         </div>
                     </div>
-                    <DropdownMenuSeparator />
+                    <DropdownMenuSeparator/>
                     <DropdownMenuItem>
-                        <IndianRupee /> My Subscription
+                        <IndianRupee/> My Subscription
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                       <LogOut /> Logout
+                    <DropdownMenuItem onClick={handleLogout}>
+                        <LogOut/> Logout
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

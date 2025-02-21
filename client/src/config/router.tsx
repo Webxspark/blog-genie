@@ -8,6 +8,7 @@ import OnBoarding from "@/pages/onboarding";
 const AppLanding = lazy(() => import("@/views/landing"));
 const AuthenticationLayout = lazy(() => import("@/layouts/authentication-layout.tsx"));
 const LoginForm = lazy(() => import("@/views/auth/login.tsx"));
+const RegisterForm = lazy(() => import("@/views/auth/register.tsx"));
 export const AppRouter = createBrowserRouter([
     {
         path: ROUTES.home,
@@ -33,7 +34,9 @@ export const AppRouter = createBrowserRouter([
             },
             {
                 path: ROUTES.authentication.register,
-                element: <>Register</>
+                element: <SuspenseWrapper>
+                    <RegisterForm />
+                </SuspenseWrapper>
             },
             {
                 path: `${ROUTES.authentication._base}/*`,
