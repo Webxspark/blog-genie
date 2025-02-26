@@ -6,6 +6,7 @@ import {useEffect, useRef, useState} from "react";
 import {APP_CONFIG} from "@/constants/app.config.ts";
 import PreLoader from "@/components/internals/pre-loader.tsx";
 import {ROUTES} from "@/constants/routes.ts";
+import {ping, refreshToken} from "@/share/apis.ts";
 
 const AdminLayout = () => {
     const user = useAdminStore(state => state.user)
@@ -24,14 +25,46 @@ const AdminLayout = () => {
             const user = localStorage.getItem(APP_CONFIG.app_code + '_user')
             if (user) {
                 const parsedUser: User = JSON.parse(user)
+                console.log(parsedUser)
                 setUser(parsedUser)
                 // validate user session
+                ping(parsedUser.access_token).then(resp => {
+                    if (resp.status === 401) {
+                        refreshToken(parsedUser.refresh_token).then(rresp => {
+                            if (rresp.status !== 200) {
+                                setUser(null)
+                                setError('You are not logged in!')
+                                window.location.href = (ROUTES.authentication.login)
+                                return
+                            } else {
+                                setLoading(false)
+                                setUser({
+                                    refresh_token: parsedUser.refresh_token,
+                                    access_token: rresp.access_token,
+                                })
+                            }
+                        }).catch(err => {
+                            console.error(err)
+                        })
+                    } else if(resp.status !== 200){
+                        setUser(null)
+                        setError('You are not logged in!')
+                        window.location.href = (ROUTES.authentication.login)
+                    } else {
+                        setLoading(false)
+                    }
+                }).catch(err => {
+                    setLoading(false)
+                    console.error((err.status))
+                }).finally(() => {
+                    setIsAuthChecked(true)
+                })
             } else {
                 setError('You are not logged in!')
                 window.location.href = (ROUTES.authentication.login)
             }
         }
-    }, [setError, setUser])
+    }, [setError, setIsAuthChecked, setUser])
     return (
         <div>
             <div className={'flex min-h-screen'}>

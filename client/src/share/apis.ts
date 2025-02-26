@@ -8,3 +8,11 @@ export function login(email: string, password: string): Promise<ILoginResp> {
 export function signup(username: string, email:string, password: string): Promise<IGeneral> {
     return wxpFetch('/auth/register', "POST", JSON.stringify({username, email, password}))
 }
+
+export function ping(token: string): Promise<IGeneral> {
+    return wxpFetch('/sudo/ping', 'GET', "", token)
+}
+
+export function refreshToken(token: string): Promise<IGeneral & {access_token: string}> {
+    return wxpFetch('/auth/refresh', 'POST', "", token)
+}

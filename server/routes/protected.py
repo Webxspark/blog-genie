@@ -6,6 +6,14 @@ from sqlalchemy import or_
 
 protected_bp = Blueprint("protected", __name__)
 
+@protected_bp.route("/ping", methods=['GET'])
+@jwt_required()
+def ping():
+    current_user = get_jwt_identity()
+    return jsonify({
+        "msg": "Pong!",
+    }), 200
+
 @protected_bp.route("/agents", methods=["GET"])
 @jwt_required()
 def agents():

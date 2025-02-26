@@ -8,11 +8,13 @@ import {FormEvent, useRef, useState} from "react";
 import {toast} from "sonner";
 import {Loader} from "lucide-react";
 import {login} from "@/share/apis.ts";
-import {APP_CONFIG} from "@/constants/app.config.ts";
+// import {APP_CONFIG} from "@/constants/app.config.ts";
+import {useAdminStore} from "@/contexts/app-store.ts";
 
 const LoginForm = () => {
     const emailRef = useRef<HTMLInputElement | null>(null),
         passwordRef = useRef<HTMLInputElement | null>(null)
+    const setUser = useAdminStore(state => state.setUser)
     const [loading, setLoading] = useState(false);
     const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -27,12 +29,16 @@ const LoginForm = () => {
 
         setLoading(true)
         login(email, password).then(response => {
-            toast.success(response.msg)
-            localStorage.setItem(APP_CONFIG.app_code + '_user', JSON.stringify({
-                access_token: response.access_token,
-                refresh_token: response.refresh_token
-            }))
-            window.location.replace(ROUTES.dashboard.home)
+            if (response.status === 200) {
+                toast.success(response.msg)
+                setUser({
+                    access_token: response.access_token,
+                    refresh_token: response.refresh_token
+                })
+                window.location.replace(ROUTES.dashboard.home)
+            } else {
+                toast.error(response.msg)
+            }
         }).catch(err => {
             console.error(err)
             toast.error(err.message || "Something went wrong :( [D-500]")
