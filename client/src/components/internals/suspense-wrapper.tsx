@@ -1,15 +1,17 @@
 import {ReactNode, Suspense} from "react";
 import PreLoader from "@/components/internals/pre-loader.tsx";
 import {motion} from "framer-motion";
+import {cn} from "@/lib/utils.ts";
 
 interface SuspenseWrapperProps {
     children: ReactNode;
+    fallbackClassName?: string;
 }
 
-const SuspenseWrapper = ({children}: SuspenseWrapperProps) => {
+const SuspenseWrapper = ({children, fallbackClassName}: SuspenseWrapperProps) => {
     return (
         <Suspense
-            fallback={<PreLoader className={'h-[90dvh]'}/>}
+            fallback={<PreLoader className={cn('h-[90dvh]', fallbackClassName)}/>}
         >
             <motion.div
                 initial={{opacity: 0}}

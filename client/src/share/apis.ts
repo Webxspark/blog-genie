@@ -16,3 +16,7 @@ export function ping(token: string): Promise<IGeneral> {
 export function refreshToken(token: string): Promise<IGeneral & {access_token: string}> {
     return wxpFetch('/auth/refresh', 'POST', "", token)
 }
+
+export function createNewAgent(data:string, token: string): Promise<IGeneral> {
+    return wxpFetch('/sudo/agents', 'POST', data, token)
+}

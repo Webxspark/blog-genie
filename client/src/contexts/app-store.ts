@@ -25,7 +25,6 @@ export const useAdminStore = create<AdminState>((set) => ({
         if (user === null) {
             localStorage.removeItem(APP_CONFIG.app_code + '_user')
         } else {
-            console.log(user)
             localStorage.setItem(APP_CONFIG.app_code + '_user', JSON.stringify(user as User))
             return set({user})
         }

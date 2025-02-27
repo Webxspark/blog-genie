@@ -3,12 +3,13 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 import {ROUTES} from "@/constants/routes.ts";
 import AdminLayout from "@/layouts/admin-layout.tsx";
 import SuspenseWrapper from "@/components/internals/suspense-wrapper.tsx";
-import OnBoarding from "@/pages/onboarding";
 
 const AppLanding = lazy(() => import("@/views/landing"));
 const AuthenticationLayout = lazy(() => import("@/layouts/authentication-layout.tsx"));
 const LoginForm = lazy(() => import("@/views/auth/login.tsx"));
 const RegisterForm = lazy(() => import("@/views/auth/register.tsx"));
+const MyAgents = lazy(() => import("@/views/dashboard/agents.tsx"));
+
 export const AppRouter = createBrowserRouter([
     {
         path: ROUTES.home,
@@ -35,7 +36,7 @@ export const AppRouter = createBrowserRouter([
             {
                 path: ROUTES.authentication.register,
                 element: <SuspenseWrapper>
-                    <RegisterForm />
+                    <RegisterForm/>
                 </SuspenseWrapper>
             },
             {
@@ -58,7 +59,7 @@ export const AppRouter = createBrowserRouter([
             },
             {
                 path: ROUTES.dashboard.onboarding,
-                element: <SuspenseWrapper><OnBoarding /></SuspenseWrapper>
+                element: <SuspenseWrapper><MyAgents/></SuspenseWrapper>
             },
             {
                 path: ROUTES.dashboard.timeline,

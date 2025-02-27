@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:is(.dark *));
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -96,9 +98,6 @@
     @apply bg-background text-foreground;
   }
 }
-
-
-
 
 @variant dark (&:where(.dark, .dark *));
 
@@ -215,5 +214,14 @@
   }
   to {
     height: 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

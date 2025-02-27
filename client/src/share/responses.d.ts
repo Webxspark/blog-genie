@@ -1,4 +1,5 @@
 export interface IGeneral {
+    action?: string;
     msg: string,
     status?: number
 }

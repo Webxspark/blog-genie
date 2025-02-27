@@ -25,11 +25,10 @@ const AdminLayout = () => {
             const user = localStorage.getItem(APP_CONFIG.app_code + '_user')
             if (user) {
                 const parsedUser: User = JSON.parse(user)
-                console.log(parsedUser)
                 setUser(parsedUser)
                 // validate user session
                 ping(parsedUser.access_token).then(resp => {
-                    if (resp.status === 401) {
+                    if (resp.status === 401 && resp.action === "refresh_token") {
                         refreshToken(parsedUser.refresh_token).then(rresp => {
                             if (rresp.status !== 200) {
                                 setUser(null)
