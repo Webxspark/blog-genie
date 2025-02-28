@@ -1,5 +1,5 @@
 import {wxpFetch} from "@/lib/utils.ts";
-import {IGeneral, ILoginResp} from "@/share/responses";
+import {IAgentListFetchResp, IGeneral, ILoginResp} from "@/share/responses";
 
 export function login(email: string, password: string): Promise<ILoginResp> {
     return wxpFetch('/auth/login', 'POST', JSON.stringify({email, password}))
@@ -19,4 +19,8 @@ export function refreshToken(token: string): Promise<IGeneral & {access_token: s
 
 export function createNewAgent(data:string, token: string): Promise<IGeneral> {
     return wxpFetch('/sudo/agents', 'POST', data, token)
+}
+
+export function fetchAgents(token: string): Promise<IAgentListFetchResp> {
+    return wxpFetch('/sudo/agents', 'GET', "", token)
 }
