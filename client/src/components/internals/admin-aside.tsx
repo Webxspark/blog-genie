@@ -11,7 +11,7 @@ const AdminAside = () => {
             <Link className={'flex items-center justify-center'} to={ROUTES.dashboard.home}>
                 <Logo/>
             </Link>
-            <div className={'flex justify-center min-h-[200px] h-[80dvh] flex-col gap-6'}>
+            <div className={'flex justify-center min-h-[200px] h-[30dvh] flex-col gap-6'}>
                 {
                     asideRec.map((item, index) => {
                         const isActive = pathname === item.to

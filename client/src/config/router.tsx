@@ -9,6 +9,7 @@ const AuthenticationLayout = lazy(() => import("@/layouts/authentication-layout.
 const LoginForm = lazy(() => import("@/views/auth/login.tsx"));
 const RegisterForm = lazy(() => import("@/views/auth/register.tsx"));
 const MyAgents = lazy(() => import("@/views/dashboard/agents.tsx"));
+const Timelines = lazy(() => import("@/views/dashboard/timelines.tsx"));
 
 export const AppRouter = createBrowserRouter([
     {
@@ -55,15 +56,15 @@ export const AppRouter = createBrowserRouter([
             },
             {
                 path: ROUTES.dashboard.home,
-                element: <SuspenseWrapper>DashboardHome</SuspenseWrapper>
-            },
-            {
-                path: ROUTES.dashboard.onboarding,
                 element: <SuspenseWrapper><MyAgents/></SuspenseWrapper>
             },
             {
+                path: ROUTES.dashboard.onboarding,
+                element: <SuspenseWrapper>DashboardOnboarding</SuspenseWrapper>
+            },
+            {
                 path: ROUTES.dashboard.timeline,
-                element: <SuspenseWrapper>DashboardTimeline</SuspenseWrapper>
+                element: <SuspenseWrapper><Timelines /></SuspenseWrapper>
             },
             {
                 path: ROUTES.dashboard.instructions,

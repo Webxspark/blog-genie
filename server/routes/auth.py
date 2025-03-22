@@ -41,7 +41,7 @@ def login():
     if not bcrypt.checkpw(data["password"].encode(), user.password.encode()):
         return jsonify({"msg": "Incorrect password!"}), 400
     
-    accessToken = create_access_token(identity=user.email, expires_delta=timedelta(minutes=5))
+    accessToken = create_access_token(identity=user.email, expires_delta=timedelta(days=365))
     refreshToken = create_refresh_token(identity=user.email)
 
     

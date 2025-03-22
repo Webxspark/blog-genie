@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from groq import Groq
 
 load_dotenv()
 
@@ -14,3 +15,7 @@ class Config:
 
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+GroqClient = Groq(
+    api_key=os.environ.get("GROQ_API_KEY"),
+)

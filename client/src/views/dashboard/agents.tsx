@@ -18,7 +18,7 @@ const MyAgents = () => {
     const user = useAdminStore(state => state.user)
     const [data, setData] = useState<IAgentListFetchResp['data']>([])
     const [viewAgentModalDisplay, setViewAgentModalDisplay] = useState<IAgentListFetchResp['data'][0] | boolean>(false)
-
+    // const [editAgentDetails, setEditAgentDetails] = useState<IAgentListFetchResp['data'][0]>();
     const _fetchAgents = useCallback(() => {
         fetchAgents(user?.access_token || "")
             .then(response => {
@@ -94,8 +94,10 @@ const MyAgents = () => {
                         </DialogTitle>
                     </DialogHeader>
                     <SuspenseWrapper fallbackClassName={'h-[40dvh]'}>
-                        <div className={'max-h-[80dvh] overflow-y-scroll p-2'}><NewAgentForm
-                            callback={addModalCallback}/></div>
+                        <div className={'max-h-[80dvh] overflow-y-scroll p-2'}>
+                            <NewAgentForm
+                                callback={addModalCallback}/>
+                        </div>
                     </SuspenseWrapper>
                 </DialogContent>
             </Dialog>

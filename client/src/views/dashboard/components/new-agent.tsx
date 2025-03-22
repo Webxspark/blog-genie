@@ -3,18 +3,20 @@ import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Slider} from "@/components/ui/slider.tsx";
-import {FormEvent, useState} from "react";
+import {FormEvent, useEffect, useRef, useState} from "react";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import {APP_CONFIG} from "@/constants/app.config.ts";
 import {Loader} from "lucide-react";
 import {toast} from "sonner";
 import {createNewAgent} from "@/share/apis.ts";
 import {useAdminStore} from "@/contexts/app-store.ts";
+import {IAgentListFetchResp} from "@/share/responses";
 
 interface newAgentFormProps {
-    callback: () => void
+    callback: () => void;
+    agent ?: IAgentListFetchResp['data'][0]
 }
-const NewAgentForm = ({callback}: newAgentFormProps) => {
+const NewAgentForm = ({callback, agent}: newAgentFormProps) => {
     const [agentName, setAgentName] = useState("");
     const [agentInstructions, setAgentInstructions] = useState("");
     const [postFrequency, setPostFrequency] = useState(1);
@@ -27,6 +29,23 @@ const NewAgentForm = ({callback}: newAgentFormProps) => {
     const [loading, setLoading] = useState(false)
     const user = useAdminStore(store => store.user)
 
+    const isMounted = useRef(false)
+
+    useEffect(() => {
+        if(!isMounted.current){
+            isMounted.current = true;
+            if (agent) {
+                setAgentName(agent.name)
+                setAgentInstructions(agent.instructions)
+                setPostFrequency(agent.postfreq)
+                setCompanyName(agent.cname)
+                setCompanyNiche(agent.cniche)
+                setCompanyAboutUs(agent.cdescription)
+                setBlogCategory(agent.blogcat)
+                setBlogDescription(agent.blogdesc)
+            }
+        }
+    }, [agent]);
 
     const handleFormSubmit = (e : FormEvent<HTMLFormElement>) => {
         e.preventDefault()

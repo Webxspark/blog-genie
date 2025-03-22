@@ -24,3 +24,16 @@ export interface IAgentListFetchResp extends IGeneral {
         user: string,
     }[]
 }
+
+export interface ITimelinePostMeta {
+    title: string;
+    description: string;
+    thumbnail_prompts: string[];
+    tags: string[];
+}
+
+export type ITimelinePosts = {
+    date: string;
+    posts: ITimelinePostMeta[];
+    posted: boolean;
+}[]

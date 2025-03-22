@@ -1,5 +1,5 @@
 import {wxpFetch} from "@/lib/utils.ts";
-import {IAgentListFetchResp, IGeneral, ILoginResp} from "@/share/responses";
+import {IAgentListFetchResp, IGeneral, ILoginResp, ITimelinePosts} from "@/share/responses";
 
 export function login(email: string, password: string): Promise<ILoginResp> {
     return wxpFetch('/auth/login', 'POST', JSON.stringify({email, password}))
@@ -23,4 +23,8 @@ export function createNewAgent(data:string, token: string): Promise<IGeneral> {
 
 export function fetchAgents(token: string): Promise<IAgentListFetchResp> {
     return wxpFetch('/sudo/agents', 'GET', "", token)
+}
+
+export function fetchTimelines(token: string): Promise<IGeneral & {data: ITimelinePosts}>{
+    return wxpFetch('/sudo/timelines', 'GET', "", token)
 }
