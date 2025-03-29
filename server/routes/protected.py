@@ -135,3 +135,26 @@ def getUserTimelines():
         "msg": "Timelines fetched successfully!",
         "data": [timeline.serialize() for timeline in timelines]
     }), 200
+
+# @protected_bp.route('/timelines', methods=['DELETE'])
+@protected_bp.route('/timelines/<string:token>', methods=['DELETE'])
+@jwt_required()
+def deleteTimeline(token):
+    current_user = get_jwt_identity()
+    # Validate the token
+    if not token:
+        return jsonify({"msg": "Token is required!"}), 400
+    # Check if the timeline exists
+    timelineInfo = Timelines.query.filter_by(token=token).first()
+    if not timelineInfo:
+        return jsonify({"msg": "Timeline not found!"}), 404
+    
+    # check if the timeline belongs to the user
+    if timelineInfo.user != current_user:
+        return jsonify({"msg": "Timeline does not belong to you!"}), 403
+    try:
+        db.session.delete(timelineInfo)
+        db.session.commit()
+        return jsonify({"msg": "Timeline deleted successfully!"}), 200
+    except Exception as e:
+        return jsonify({"msg": "An error occurred", "_e": e}), 500

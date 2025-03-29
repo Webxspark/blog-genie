@@ -18,9 +18,13 @@ class Timelines(db.Model):
     token = db.Column(db.String(200), nullable=False)
 
     def serialize(self):
+        from models.agents import Agents
+        # Get agent details from the database
+        agent_details = Agents.query.filter_by(tag=self.agent).first()
+        agent_data = agent_details.serialize() if agent_details else {}
         return {
             "id": self.id,
-            "agent": self.agent,
+            "agent": agent_data,
             "schedule": self.schedule,
             "user": self.user,
             "token": self.token

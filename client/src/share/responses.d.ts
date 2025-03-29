@@ -31,9 +31,15 @@ export interface ITimelinePostMeta {
     thumbnail_prompts: string[];
     tags: string[];
 }
-
-export type ITimelinePosts = {
+export interface ITimelineScheduleChunk {
     date: string;
     posts: ITimelinePostMeta[];
     posted: boolean;
+}
+export type ITimelinePosts = {
+    agent: IAgentListFetchResp['data'][0];
+    id: number;
+    token: string;
+    user: string;
+    schedule: ITimelineScheduleChunk[] | string
 }[]

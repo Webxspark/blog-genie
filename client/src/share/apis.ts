@@ -28,3 +28,11 @@ export function fetchAgents(token: string): Promise<IAgentListFetchResp> {
 export function fetchTimelines(token: string): Promise<IGeneral & {data: ITimelinePosts}>{
     return wxpFetch('/sudo/timelines', 'GET', "", token)
 }
+
+export function createNewTimeline(agent: string, token: string): Promise<IGeneral> {
+    return wxpFetch('/sudo/new-timeline', 'POST', JSON.stringify({agent_tag: agent}), token)
+}
+
+export function deleteTimeline(token: string, timelineId: number): Promise<IGeneral> {
+    return wxpFetch(`/sudo/timelines/${timelineId}`, 'DELETE', "", token)
+}
