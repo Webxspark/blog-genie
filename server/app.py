@@ -5,6 +5,8 @@ from config import Config
 from extensions import db, jwt
 from routes.auth import auth_bp
 from routes.protected import protected_bp
+import threading
+from modules.agent.bgWorker import startBGAgent
 
 app = Flask(__name__)
 # Enable CORS policy
@@ -36,6 +38,10 @@ app.register_blueprint(protected_bp, url_prefix="/sudo")
 # Create tables inside application context
 with app.app_context():
     db.create_all()
+
+# start the background agent in a separate thread
+worket_thread = threading.Thread(target=startBGAgent, args=(app,), daemon=True)
+worket_thread.start()
 
 # Starting the app
 app.run("0.0.0.0", 8080, debug=False)

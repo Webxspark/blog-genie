@@ -33,6 +33,6 @@ export function createNewTimeline(agent: string, token: string): Promise<IGenera
     return wxpFetch('/sudo/new-timeline', 'POST', JSON.stringify({agent_tag: agent}), token)
 }
 
-export function deleteTimeline(token: string, timelineId: number): Promise<IGeneral> {
+export function deleteTimeline(token: string, timelineId: string): Promise<IGeneral> {
     return wxpFetch(`/sudo/timelines/${timelineId}`, 'DELETE', "", token)
 }
