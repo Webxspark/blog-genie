@@ -36,7 +36,7 @@ class AuthController extends Controller
         ])->setStatusCode(200);
     }
 
-    public function logout(Request $request): \Illuminate\Http\JsonResponse
+    public function logout(Request $request): JsonResponse
     {
         $user = Auth::user();
         try {
