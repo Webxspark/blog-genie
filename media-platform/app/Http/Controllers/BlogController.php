@@ -17,8 +17,14 @@ class BlogController extends Controller
      */
     public function index(): Response
     {
+        $me = Auth::user();
+        $post = Blog::with('user')
+            ->where('author', $me->id)
+            ->select('id', 'title', 'author', 'description', 'thumbnail', 'views', 'slug', 'created_at', 'updated_at')
+            ->get();
+
         return Inertia::render("posts/index", [
-            'posts' => Blog::with('user')->get(),
+            'posts' => $post,
         ]);
     }
 
@@ -72,7 +78,8 @@ class BlogController extends Controller
      */
     public function edit(string $id): Response|RedirectResponse
     {
-        $post = Blog::with('user')->find($id);
+        $me = Auth::user();
+        $post = Blog::with('user')->where('author', $me->id)->find($id);
         if (!$post) {
             return redirect()->route('posts.index')->with('error', 'Post not found');
         }
@@ -124,7 +131,10 @@ class BlogController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        $post = Blog::with('user')->find($id);
+        $me = Auth::user();
+        $post = Blog::with('user')
+            ->where('author', $me->id)
+            ->find($id);
         if (!$post) {
             return redirect()->route('posts.index')->with('error', 'Post not found');
         }

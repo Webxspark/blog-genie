@@ -95,7 +95,6 @@ const New = () => {
         if (!post) {
             router.post(ROUTES.posts.index, data, reqOptions);
         } else {
-            console.log(data)
             router.post(`${ROUTES.posts.index}/${post.id}`, {
                 _method: 'PUT',
                 title: title,

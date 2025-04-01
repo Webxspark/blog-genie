@@ -28,10 +28,11 @@ export interface IPagePost {
     title: string;
     description: string;
     slug: string;
-    body: string;
+    body?: string;
     views: number;
     created_at: string;
-    author: {
+    updated_at: string;
+    user: {
         id: number;
         name: string;
         email: string;
@@ -39,7 +40,7 @@ export interface IPagePost {
     thumbnail: string;
 }
 
-interface IPageProps {
+export interface IPageProps {
     posts: IPagePost[];
     flash?: {
         success: string;
@@ -52,7 +53,6 @@ interface IPageProps {
 
 const Posts = () => {
     const {posts, flash} = usePage<IPageProps>().props;
-    console.log(posts);
 
     useEffect(() => {
         // Check for flash messages and display them as toasts

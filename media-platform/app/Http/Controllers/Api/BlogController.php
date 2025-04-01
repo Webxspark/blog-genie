@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index(): JsonResponse
     {
-        $posts = Blog::all();
+        $posts = Blog::select('id', 'title', 'author', 'description', 'thumbnail', 'views', 'slug', 'created_at', 'updated_at')->get();
         return response()->json([
             "message" => "Here are all the posts",
             "data" => $posts
@@ -25,7 +25,7 @@ class BlogController extends Controller
     public function indexMine(): JsonResponse
     {
         $user = Auth::user();
-        $posts = Blog::where("author", $user->id)->get();
+        $posts = Blog::with('user')->select('id', 'title', 'author', 'description', 'thumbnail', 'views', 'slug', 'created_at', 'updated_at')->get();
         return response()->json([
             "message" => "Here are all your posts",
             "data" => $posts
@@ -66,7 +66,7 @@ class BlogController extends Controller
      */
     public function show(string $slug): JsonResponse
     {
-        $post = Blog::where("slug", $slug)->with('users')->first();
+        $post = Blog::where("slug", $slug)->first();
         if (!$post) {
             return response()->json([
                 "message" => "Post not found"

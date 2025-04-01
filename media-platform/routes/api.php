@@ -18,7 +18,7 @@ Route::get("/posts/{slug}", [BlogController::class, 'show']);
 
 Route::middleware("auth:sanctum")->group(function () {
     Route::post("/logout", [AuthController::class, 'logout']);
-    Route::get("/posts/me", [BlogController::class, 'indexMine']);
+    Route::get("/my-posts", [BlogController::class, 'indexMine']);
     Route::post("/posts", [BlogController::class, 'store']);
     Route::put("/posts/{id}", [BlogController::class, 'update']);
     Route::delete("/posts/{id}", [BlogController::class, 'destroy']);

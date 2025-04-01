@@ -22,4 +22,9 @@ export default defineConfig({
             'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
         },
     },
+    define: {
+        'process.env': {
+            VITE_APP_NAME: JSON.stringify(process.env.APP_NAME)
+        }
+    }
 });
