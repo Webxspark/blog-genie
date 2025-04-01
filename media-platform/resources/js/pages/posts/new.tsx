@@ -54,8 +54,8 @@ const New = () => {
             if (post) {
                 setTitle(post.title);
                 setDescription(post.description);
-                setInitialContent(post.body);
-                setContent(post.body);
+                setInitialContent(post.body!);
+                setContent(post.body!);
                 setThumbnail(post.thumbnail);
             }
 
@@ -170,6 +170,7 @@ const New = () => {
                                     model={initialContent}
                                     config={{
                                         theme: 'royal',
+                                        key: "1C%kZV[IX)_SL}UJHAEFZMUJOYGYQE[\\\\ZJ]RAe(+%$==",
                                         editorClass: "prose max-w-none",
                                         attribution: false,
                                         documentReady: true,
