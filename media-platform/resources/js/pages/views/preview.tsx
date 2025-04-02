@@ -26,7 +26,6 @@ const PostPreview = () => {
                 <meta property="og:title" content={post.title}/>
                 <meta property="og:description" content={post.description}/>
                 <meta property="og:image" content={`/images/${post.thumbnail}`}/>
-                <meta property="og:url" content={location.href}/>
                 <meta property="og:type" content="article"/>
                 <meta property="og:site_name" content={appName}/>
                 <meta property="og:locale" content="en_US"/>

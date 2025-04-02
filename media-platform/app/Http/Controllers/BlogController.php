@@ -33,7 +33,7 @@ class BlogController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render("posts/new", [
+        return Inertia::render("new-post", [
             'user' => Auth::user(),
         ]);
     }
@@ -83,7 +83,7 @@ class BlogController extends Controller
         if (!$post) {
             return redirect()->route('posts.index')->with('error', 'Post not found');
         }
-        return Inertia::render("posts/new", [
+        return Inertia::render("new-post", [
             'post' => $post,
         ]);
     }

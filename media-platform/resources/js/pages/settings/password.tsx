@@ -75,7 +75,7 @@ export default function Password() {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">New password</Label>
+                            <Label htmlFor="password">NewPost password</Label>
 
                             <Input
                                 id="password"
@@ -85,7 +85,7 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
-                                placeholder="New password"
+                                placeholder="NewPost password"
                             />
 
                             <InputError message={errors.password} />
