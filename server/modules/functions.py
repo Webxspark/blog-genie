@@ -1,6 +1,6 @@
 from flask import jsonify
 from config import GroqClient
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import requests
 import base64
@@ -86,7 +86,7 @@ def createTimelineResponse(name, company, niche, blogCategory, blogDescription, 
     for i in range(7):
         date = current_date.strftime("%d-%m-%Y")
         postDates.append(date)
-        current_date = current_date.replace(day=current_date.day + 1)
+        current_date += timedelta(days=1)
     messages = [
         {
             "role": "system",
